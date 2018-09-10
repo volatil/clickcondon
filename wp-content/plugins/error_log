@@ -1,0 +1,2 @@
+[05-Oct-2015 21:40:40 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home1/volatil/public_html/clickcondon.com/wp-content/plugins/hello.php on line 60
+[22-Oct-2015 17:54:26 America/Chicago] PHP Fatal error:  Call to undefined function add_action() in /home1/volatil/public_html/clickcondon.com/wp-content/plugins/hello.php on line 60

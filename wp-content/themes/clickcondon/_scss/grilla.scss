@@ -1,0 +1,103 @@
+
+@import 'variables';
+@import 'header';
+@import 'footer';
+
+@media ($m:1280px){
+	.archive .default_product_display, 
+	.seccionProductosLista .productosLista .default_product_display {
+		width: 13%;
+	}
+	.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_buy_button_container>input {
+		padding: 10px 20px 11px;
+		margin: 0 auto;
+		display: block;
+	}
+}
+@media ($m:1024px){
+	.archive .default_product_display, 
+	.seccionProductosLista .productosLista .default_product_display {
+		width: 150px;
+	}
+}
+
+@media ($m:768px){
+	.site-content .entry-content ,
+	.site-content .entry-summary ,
+	.page-content {
+		max-width: 100%;
+	}
+	.seccionProductosLista #content .productosLista .default_product_display .product_form {
+		width: 100%
+	}
+	.archive .default_product_display, 
+	.seccionProductosLista .productosLista .default_product_display {
+		width: 140px;
+	}
+	.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_buy_button_container > input {
+		padding: 10px 10px 11px;
+	}
+}
+
+@media ($m:600px){
+	.entry-content form {
+		width: 440px;
+	}
+}
+
+@media ($m:450px){
+	.entry-content form {
+		width: 310px;
+	}
+	.archive .default_product_display, .seccionProductosLista .productosLista .default_product_display {
+		width: 90%;
+		height: auto;
+		margin-top: 10px;
+	}
+	.archive .default_product_display .imagecol, 
+	.seccionProductosLista #content .productosLista .default_product_display .imagecol {
+		margin: 0;
+		float: left;
+	}
+	.archive .default_product_display h2, .seccionProductosLista #content .productosLista .default_product_display h2 {
+		position: absolute;
+		top: 0;
+		left: 170px;
+	}
+	.default_product_display .wpsc_product_price {
+		padding: 0;
+	}
+	.archive .default_product_display .wpsc_description, 
+	.seccionProductosLista #content .productosLista .default_product_display .wpsc_description {
+		display: none;
+		position: absolute;
+		top: 40px;
+		left: 170px;
+	}
+	.seccionProductosLista #content .productosLista .default_product_display .product_form {
+		position: absolute;
+		top: 40px;
+		left: 170px;
+		width: inherit;
+		height: 130px;
+		clear: left;
+		right: 0;
+	}
+	.archive .default_product_display .productcol form .wpsc_product_price .wpsc-product-price, 
+	.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_product_price .wpsc-product-price {
+		text-align: left;
+	}
+	.archive .default_product_display .productcol form fieldset, 
+	.seccionProductosLista #content .productosLista .default_product_display .productcol form fieldset {
+		bottom: inherit;
+		top: 25px;
+	}
+	.archive .default_product_display .productcol form fieldset legend, 
+	.seccionProductosLista #content .productosLista .default_product_display .productcol form fieldset legend {
+		text-align: left;;
+	}
+	.archive .default_product_display .productcol form fieldset .wpsc_quantity_update input:first-of-type, 
+	.seccionProductosLista #content .productosLista .default_product_display .productcol form fieldset .wpsc_quantity_update input:first-of-type {
+		margin: 0 0 0 15px;
+	}
+}

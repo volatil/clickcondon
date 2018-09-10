@@ -1,0 +1,4 @@
+[23-Feb-2015 14:47:22 America/Chicago] PHP Fatal error:  Call to undefined function get_header() in /home1/volatil/public_html/clickcondon.com/wp-content/themes/clickcondon/404.php on line 10
+[15-Apr-2015 14:40:39 America/Chicago] PHP Fatal error:  Call to undefined function get_header() in /home1/volatil/public_html/clickcondon.com/wp-content/themes/clickcondon/index.php on line 17
+[09-Jan-2016 02:41:45 America/Chicago] PHP Fatal error:  Call to undefined function get_header() in /home1/volatil/public_html/clickcondon.com/wp-content/themes/clickcondon/404.php on line 10
+[22-May-2016 20:29:11 America/Chicago] PHP Fatal error:  Call to undefined function get_header() in /home1/volatil/public_html/clickcondon.com/wp-content/themes/clickcondon/404.php on line 10

@@ -1,0 +1,14 @@
+
+@import 'variables';
+
+
+@media ($m:600px){
+	section.hips .buscador form {
+		width: 90%;
+	}
+}
+@media ($m:450px){
+	section.hips > p {
+		font-size: 1.8em;
+	}
+}

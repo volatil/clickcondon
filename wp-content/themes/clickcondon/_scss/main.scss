@@ -1,0 +1,1312 @@
+
+/*
+================================================
+	=> NONE
+	=> GENERAL
+	=> HEADER
+	=> HEADER HIPSTER
+	=> PASOS
+	=> PROMOCION
+	=> CONTENEDOR
+	=> INICIO
+	=> GRILLA
+	=> CATEGORIA
+	=> DETALLE PRODUCTO
+	=> COMENTARIOS
+	=> ENVIOS Y COSTOS
+	=> MODAL AGREGO PRODUCTO AL CARRO
+	=> CONFIRMAR COMPRA
+	=> COMPRA FINALIZADA
+	=> MI CUENTA
+	=> ESTATICOS
+	=> FOOTER
+================================================
+*/
+
+@import 'variables';
+
+/*
+================================================
+	=> NONE
+================================================
+*/
+
+/*fondo sidebar*/
+.site:before {
+	display: none; 
+}
+#secondary {
+	display: none;
+}
+.entry-content .edit-link {
+	display: none;
+}
+
+
+/*
+================================================
+	=> GENERAL
+================================================
+*/
+
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
+body {
+	font-family: 'PT Sans', sans-serif;
+	background: #EFF5F6;
+	background: #DDE1E7;
+	background: #F1F1F1;
+} 
+a {
+	color: $verde;
+}
+a:active ,
+a:hover {
+	color: $verdeOscuro;
+}
+::selection {
+	background: $verdeOscuro;
+}
+.sprite {
+	background-image: url('../images/sprite.png');
+	background-repeat: no-repeat;
+	display: block;
+}
+.site {
+	max-width: none;
+	background: transparent;
+}
+
+/*
+================================================
+	=> HEADER
+================================================
+*/
+
+#page > header {
+	width: 100%;
+	height: auto;
+	display: inline-block;
+	background: $blanco;
+	position: relative;
+	z-index: 2;
+	@include sombra(0px -1px 20px #222);
+}
+header .logo {
+	display: block;
+	height: 35px;
+	width: 200px;
+	padding: 10px 0 0 10px;
+	float: left;
+	opacity: 1;
+	@include transicion(.3s);
+}
+	header .logo:hover {
+		opacity: .7;
+		@include transicion(.3s);
+	}
+header .logo a {
+	display: block;
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+header .logo a img {
+	width: 100%;
+}
+header .buscador {
+	display: none;
+	float: right;
+	margin: 10px 10px 0 0;
+}
+header .buscador form {
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 0;
+}
+header .buscador form fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+header .buscador form fieldset input {
+	height: 34px;
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin-left: 0px;
+	margin-right: 0px;
+	clear: left;
+	width: 100%;
+}
+header .buscador form fieldset button {
+	font-size: 1em;
+	font-weight: 100;
+	float: right;
+	background: $grisOscuro;
+	border-bottom: 3px solid $grisMuyOscuro;
+	outline: none;
+	@include bordes(0px); 
+	padding: 6px 8px;
+	@include transicion(.3s);
+}
+	header .buscador form fieldset button:hover {
+		opacity: .9;
+		@include transicion(.3s);
+	}
+	header .buscador form fieldset button:active {
+		background: $grisMuyOscuro;
+		@include transicion(.3s);
+	}
+header .buscador form fieldset button span {
+	width: 15px;
+	height: 14px;
+	display: inline-block;
+	margin-right: 10px;
+}
+header nav { 
+	float: right;
+}
+header nav  .menuMobile {
+	display: none;
+}
+header nav div {
+	float: left;
+}
+header nav div ul {
+	padding: 0;
+	margin: 0;
+}
+header nav div > ul > li {
+	list-style: none;
+	float: left;
+	text-align: center;
+	height: 50px;
+	margin: 0 4px;
+	line-height: 3.3em;
+	width: auto;
+	padding-right: 7px;
+}
+header nav div > ul > li.current-menu-item a {
+	color: $verdeOscuro;
+	display: block;
+}
+header nav div ul > li > a {
+	color: black;
+	color: #666;
+	float: left;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+	header nav div ul > li > a::after {
+		content: "|";
+		padding-left: 20px;
+		color: $grisClaro;
+	}
+	header nav div ul > li > a:after:last-of-type {
+		content: "";
+	}
+header nav .carroCompra {
+	display: block;
+	float: right;
+	height: 30px;
+	width: 70px;
+	margin: 10px 10px 0 0;
+}
+header nav .carroCompra a {
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+header nav .carroCompra a span {
+	display: block;
+}
+header nav .carroCompra a span.cantidad {
+	background: $verdeOscuro;
+	color: $blanco;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	line-height: 2em;
+	@include bordes(50%);
+	float: left;
+}
+header nav .carroCompra a span.sprite {
+	background-position: -15px 0px;
+	width: 35px;
+	height: 26px;
+	float: right;
+}
+
+/*
+================================================
+	=> HEADER HIPSTER
+================================================
+*/
+
+section.hips {
+	padding: 25px;
+	margin-top: -10px;
+	background: rgba(13, 170, 160, 0.98); /* Old browsers */
+	background: -moz-linear-gradient(-45deg, rgba(13, 170, 160, 0.98) 0%, rgba(0, 134, 168, 0.98) 100%), url(../images/bgHips.png) repeat fixed; 
+	background: -webkit-gradient(-45deg, rgba(13, 170, 160, 0.98) 0%, rgba(0, 134, 168, 0.98) 100%), url(../images/bgHips.png) repeat fixed; 
+	background: -webkit-linear-gradient(-45deg, rgba(13, 170, 160, 0.98) 0%, rgba(0, 134, 168, 0.98) 100%), url(../images/bgHips.png) repeat fixed; 
+	background: -o-linear-gradient(-45deg, rgba(13, 170, 160, 0.98) 0%, rgba(0, 134, 168, 0.98) 100%), url(../images/bgHips.png) repeat fixed; 
+	background: -ms-linear-gradient(-45deg, rgba(13, 170, 160, 0.98) 0%, rgba(0, 134, 168, 0.98) 100%), url(../images/bgHips.png) repeat fixed; 
+	background: linear-gradient(-45deg, rgba(13, 170, 160, 0.98) 0%, rgba(0, 134, 168, 0.98) 100%), url(../images/bgHips.png) repeat fixed; 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(13, 170, 160, 0.98)', endColorstr='rgba(0, 134, 168, 0.98)',GradientType=0 ); 
+	color: $blanco;
+	text-align: center;
+	height: 110px;
+}
+section.hips > p {
+	font-size: 2.6em;
+	color: white;
+	text-align: center;
+	margin: 0;
+}
+section.hips .buscador {
+	float: right;
+	margin: 10px 10px 0 0;
+}
+section.hips .buscador form {
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 0;
+	width: 620px;
+	margin: 0 auto;
+}
+section.hips .buscador form fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+section.hips .buscador form fieldset input {
+	height: 44px;
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin-left: 0px;
+	margin-right: 0px;
+	clear: left;
+	width: 100%;
+	padding: 10px 110px 10px 10px;
+	color: $grisOscuro;
+	font-weight: normal;
+	letter-spacing: 0.05em;
+}
+section.hips .buscador form fieldset button {
+	font-size: 1em;
+	height: 44px;
+	font-weight: 100;
+	float: right;
+	background: $grisOscuro;
+	position: relative;
+	border-bottom: 3px solid $grisMuyOscuro;
+	outline: none;
+	@include bordes(0px); 
+	padding: 6px 8px;
+	@include transicion(.3s);
+}
+	section.hips .buscador form fieldset button:hover {
+		opacity: .9;
+		@include transicion(.3s);
+	}
+	section.hips .buscador form fieldset button:active {
+		background: $grisMuyOscuro;
+		@include transicion(.3s);
+	}
+section.hips .buscador form fieldset button span {
+	width: 15px;
+	height: 14px;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+
+/*
+================================================
+	=> PASOS
+================================================
+*/
+
+section.pasos {
+	width: auto;
+	max-width: initial;
+	background: white;
+	border-bottom: $bordeContenedor;
+	padding: 10px 15px;
+	display: block;
+	float: none;
+	clear: both;
+	height: 250px;
+	position: relative;
+	margin: 0 auto 20px;
+}
+section.pasos > h3 {
+	text-align: center;
+	font-weight: 400;
+	font-size: 2.3em;
+	margin: 0;
+	line-height: inherit;
+	margin-bottom: 10px;
+}
+section.pasos > div {
+	float: left;
+	width: 20%;
+	height: 180px;
+	position: relative;
+}
+section.pasos > div > img {
+	width: 80%;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+}
+section.pasos > div > h4 {
+	margin: 0;
+	position: absolute;
+	bottom: 50px;
+	text-align: center;
+	width: 100%;
+}
+section.pasos > div > p {
+	margin: 0;
+	position: absolute;
+	bottom: 20px;
+	text-align: center;
+	width: 100%;
+}
+	.pasos > div:nth-child(2) > p {
+		bottom: 0;
+	}
+section.pasos .separadorPasos {
+	background-image: url('../images/pasos/pasosPuntos.png');
+	width: 12%;
+	height: 13px;
+	margin: 40px 3% 0;
+}
+
+/*
+================================================
+	=> PROMOCION
+================================================
+*/
+
+section.promocion {
+	width: 180px;
+	float: right;
+	background: $blanco;
+	display: block;
+	height: 260px;
+	clear: right;
+	border-bottom: $bordeContenedor;
+	margin: 10px 10px 0 0;
+}
+section.promocion a {
+	width: 100%;
+	height: 100%;
+	float: left;
+	display: block;
+}
+section.promocion a img {
+	display: block;
+	width: 170px;
+	height: auto;
+	margin-top: 7px;
+	margin-left: 5px;
+}
+
+/*
+================================================
+	=> CONTENEDOR
+================================================
+*/
+
+.full-width .archive-header ,
+.full-width .comments-area ,
+.full-width .image-navigation ,
+.full-width .page-header ,
+.full-width .page-content ,
+.full-width .post-navigation ,
+.full-width .site-content .entry-header ,
+.full-width .site-content .entry-content ,
+.full-width .site-content .entry-summary ,
+.full-width .site-content footer.entry-meta {
+	padding: 0;
+}
+.site-content, .site-main .widecolumn {
+	margin-left: 0;
+}
+.site-content .entry-header ,
+.site-content .entry-content ,
+.site-content .entry-summary ,
+.site-content .entry-meta ,
+.page-content {
+	max-width: none;
+}
+.content-area ,
+.content-sidebar {
+	padding-top: 0;
+}
+.masthead-fixed .site-main {
+	margin: 10px 1% 0;
+	float: none;
+	display: block;
+	width: 98%;
+}
+.site-content article .entry-content {
+	border-bottom: $bordeContenedor;
+}
+.seccionProductosLista .content-area .site-content article .entry-content {
+	border-bottom: none;
+}
+.hentry {
+	margin-bottom: 20px;
+}
+
+/*
+================================================
+	=> INICIO
+================================================
+*/
+
+.inicio {
+	/*
+	margin-top: 235px;
+	*/
+}
+
+/*
+================================================
+	=> GRILLA
+================================================
+*/
+
+.seccionProductosLista .page .entry-header {
+	display: none;
+}
+.seccionProductosLista .page .entry-content {
+	background: transparent;
+}
+.seccionProductosLista .productosLista .wpsc-breadcrumbs {
+	display: none;
+}
+.archive .default_product_display ,
+.seccionProductosLista .productosLista .default_product_display {
+	background: $blanco;
+	width: 170px;
+	display: inline-block;
+	margin: 1% .7% 0;
+	border: 1px solid $grisClarisimo;
+	border-bottom: $bordeContenedor;
+	padding-bottom: 40px;
+}
+	.archive .default_product_display:hover ,
+	.seccionProductosLista .productosLista .default_product_display:hover {
+		@include sombra(0 0 10px $grisClaro);
+	}
+.seccionProductosLista .productosLista .default_product_display a {
+	text-decoration: none;
+}
+.archive .default_product_display h2 ,
+.seccionProductosLista #content .productosLista .default_product_display h2 {
+	line-height: inherit;
+	margin-top: 10px;
+	font-size: 1em;
+	text-align: center;
+	color: black;
+	margin-bottom: 0;
+}
+.archive .default_product_display h2 a ,
+.seccionProductosLista #content .productosLista .default_product_display h2 a {
+	font-size: 0.6em;
+	text-transform: capitalize;
+	text-decoration: none;
+	line-height: 0.9em;
+	text-align: center;
+	display: block;
+}
+.archive .default_product_display .imagecol ,
+.seccionProductosLista #content .productosLista .default_product_display .imagecol {
+	overflow: inherit;
+	margin: 0 auto;
+	display: block;
+	float: none;
+	border: none;
+	height: auto;
+}
+.archive .default_product_display .imagecol a img ,
+.seccionProductosLista #content .productosLista .default_product_display .imagecol a img {
+	border: 1px solid $blanco;
+	cursor: auto;
+}
+.archive .default_product_display .productcol ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol {
+	margin-left: 0 !important;
+}
+.archive .default_product_display .wpsc_description ,
+.seccionProductosLista #content .productosLista .default_product_display .wpsc_description {
+	text-align: center;
+}
+.archive .default_product_display .wpsc_description p ,
+.seccionProductosLista #content .productosLista .default_product_display .wpsc_description p {
+	margin: 0;
+	color: $nueve;
+	font-size: .9em;
+}
+.archive .default_product_display .additional_description_container ,
+.seccionProductosLista #content .productosLista .default_product_display .additional_description_container {
+	display: none;
+}
+.archive .default_product_display .productcol form fieldset ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form fieldset {
+	clear: left;
+	margin: 0;
+	position: absolute;
+	width: 100%;
+	bottom: 55px;
+	display: none;
+}
+.archive .default_product_display .productcol form fieldset legend ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form fieldset legend {
+	text-align: center;
+}
+.archive .default_product_display .productcol form fieldset .wpsc_quantity_update ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form fieldset .wpsc_quantity_update {
+	margin: 0;
+	padding: 0;
+}
+.archive .default_product_display .productcol form fieldset .wpsc_quantity_update input:first-of-type ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form fieldset .wpsc_quantity_update input:first-of-type {
+	margin: 0 auto;
+	float: none;
+	display: block;
+}
+.archive .default_product_display .productcol form .wpsc_buy_button_container .wpsc_loading_animation ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_buy_button_container .wpsc_loading_animation {
+	height: 0px;
+}
+.archive .default_product_display .productcol form .wpsc_buy_button_container ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_buy_button_container {
+	position: absolute;
+	bottom: 10px;
+}
+.archive .default_product_display .productcol form .wpsc_buy_button_container > input ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_buy_button_container > input {
+	background: $verdeOscuro;
+}
+	.archive .default_product_display .productcol form .wpsc_buy_button_container > input:hover ,
+	.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_buy_button_container > input:hover {
+		background: $verdeMuyOscuro;
+	}
+.archive .default_product_display .productcol form .wpsc_product_price ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_product_price {
+	width: 100%;
+}
+.archive .default_product_display .productcol form .wpsc_product_price .in_stock ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_product_price .in_stock {
+	display: none;
+}
+.archive .default_product_display .productcol form .wpsc_product_price .wpsc-product-price ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_product_price .wpsc-product-price {
+	text-align: center;
+	color: black;
+}
+.archive .default_product_display .productcol form .wpsc_product_price .wpsc-product-price span ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_product_price .wpsc-product-price span {
+	color: $rojoPrecio;
+}
+.archive .default_product_display .productcol form .wpsc_product_price .wpsc-product-old-price ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_product_price .wpsc-product-old-price {
+	text-align: center;
+	display: block;
+	font-size: 1em;
+}
+.archive .default_product_display .productcol form .wpsc_product_price .wpsc-product-you-save ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_product_price .wpsc-product-you-save {
+	display: block;
+	text-align: center;
+	font-size: 1em;
+}
+.archive .default_product_display .productcol form .wpsc_product_price .wpsc-product-you-save span ,
+.seccionProductosLista #content .productosLista .default_product_display .productcol form .wpsc_product_price .wpsc-product-you-save span {
+	color: $verdeMuyOscuro;
+}
+
+/*
+================================================
+	=> CATEGORIA
+================================================
+*/
+
+.archive .content-area .site-content article .entry-content {
+	border-bottom: none;
+	background: transparent;
+}
+.archive #default_products_page_container .imagecol img {
+	border: none;
+}
+
+/*
+.seccionProductosLista .productosLista .default_product_display {
+background: white;
+width: 170px;
+float: left;
+margin: 20px 10px 0;
+border: 1px solid #dddddd;
+border-bottom: 2px solid #bdc9d1;
+}
+*/
+
+/*
+================================================
+	=> DETALLE PRODUCTO
+================================================
+*/
+
+.single #content .single_product_display .productcol .compartir {
+	display: block;
+}
+.single #content .single_product_display .productcol .compartir > div {
+	float: left;
+	margin-right: 10px;
+}
+.single #content .single_product_display .productcol form .wpsc_buy_button_container input {
+	padding: 15px 20px;
+	background: $verdeOscuro;
+}
+	.single #content .single_product_display .productcol form .wpsc_buy_button_container input:hover {
+		background: $verdeMuyOscuro;
+	}
+.single #content .single_product_display .imagecol img {
+	cursor: auto;
+}
+
+/*
+================================================
+	=> COMENTARIOS
+================================================
+*/
+
+#comments {
+	background-color: $blanco;
+	padding: 50px;
+	border-bottom: $bordeContenedor;
+}
+
+/*
+================================================
+	=> ENVIOS Y COSTOS
+================================================
+*/
+
+.enviosycostos {
+	margin-top: 30px;
+}
+.enviosycostos > article > header {
+	display: none;
+}
+.enviosycostos .entry-content {
+	background: transparent;
+	border-bottom: none !important;
+}
+.enviosycostos .entry-content > div {
+	margin: 0 2%;
+	background: $blanco;
+	border-bottom: $bordeContenedor;
+	padding: 5px;
+	/* 
+	height: 346px;
+	 */
+}
+	.enviosycostos .entry-content > div:first-of-type {
+		float: left;
+		width: 60%;
+	}
+	.enviosycostos .entry-content > div:last-of-type {
+		float: right;
+		width: 30%;
+	}
+.enviosycostos .entry-content > div h3 {
+	background-image: url("../images/envioyvalores-fondotitulo.png");
+	color: black;
+	text-transform: uppercase;
+	height: 50px;
+	line-height: 2em;
+	font-size: 1.6em;
+	width: 100%;
+	display: inline-flex;
+}
+.enviosycostos .entry-content > div h3 span {
+	background-image: url("../images/envioyvalores-trianguloRojo.png");
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 33px;
+	width: 20px;
+	margin: 10px 10px 0 0;
+}
+.enviosycostos .entry-content > div > div {
+	border-bottom: none;
+	padding: 10px 6px;
+}
+.enviosycostos .entry-content > div > div h4 {
+	border-bottom: 1px dashed $negro;
+	padding-bottom: 10px;
+	font-size: 1.1em;
+}
+.enviosycostos .entry-content > div > div h4 span {
+	color: $grisOscuro;
+	font-weight: 100;
+	font-size: 0.6em;
+	padding-left: 4px;
+	letter-spacing: 0.03em;
+}
+.enviosycostos .entry-content > div > div table {
+	border: none;
+}
+.enviosycostos .entry-content > div > div table tbody tr td {
+	border: none;
+	padding: 10px 0;
+}
+	.enviosycostos .entry-content > .valores > div table tbody tr td:nth-child(2) {
+		width: 40%;
+	}
+	.enviosycostos .entry-content > .valores > div table tbody tr td:last-of-type {
+		text-align: right;
+		font-size: 1.4em;
+		width: 19%;
+	}
+.enviosycostos .entry-content > div > div table tbody tr td input {
+	border: 1px solid $grisClaro;
+}
+.enviosycostos .entry-content > div > div table tbody tr td select {
+	height: 30px;
+}
+.enviosycostos .entry-content > div > div > p {
+	display: none;
+}
+.enviosycostos .entry-content > div > div > div {
+	border-top: 1px solid $grisOscuro;
+	width: 100%;
+	color: $grisMuyOscuro;
+	font-size: 1.1em;
+	height: 30px;
+	display: block;
+}
+.enviosycostos .entry-content > div > div > div p:first-of-type {
+	float: left;
+	margin: 0;
+}
+.enviosycostos .entry-content > div > div > div .totalDeseado {
+	color: $verde;
+	font-size: 1.4em;
+	margin: 0;
+	text-align: right;
+	display: inline-block;
+	float: right;
+	padding-right: 0px;
+}
+
+/*
+================================================
+	=> MODAL AGREGO PRODUCTO AL CARRO
+================================================
+*/
+
+#fancy_notification {
+	border: 2px solid $verdeOscuro;
+	z-index: 23456;
+	max-width: 310px;
+	height: auto;
+	position: absolute !important;
+	margin-left: auto;
+	background-repeat: no-repeat;
+	margin-right: auto;
+	left: 0 !important;
+	right: 0;
+	padding: 5px 10px;
+}
+
+/*
+================================================
+	=> CONFIRMAR COMPRA
+================================================
+*/
+
+#checkout_page_container h3 {
+	text-transform: uppercase;
+	margin: 10px 0 10px 10px;
+}
+#checkout_page_container p.fechaEntrega {
+	background: $grisMuyClaro;
+	border: 1px solid $grisClaro;
+	color: $negro;
+	padding: 15px 20px;
+	margin: 5px;
+	display: inline-block;
+}
+
+/*
+================================================
+	=> COMPRA FINALIZADA
+================================================
+*/
+
+.wpsc-transaction-results-wrap p:first-of-type {
+	display: none;
+}
+
+/*
+================================================
+	=> MI CUENTA
+================================================
+*/
+
+.miCuenta article {
+	background: white;
+}
+.miCuenta .hentry .entry-content {
+	background: transparent;
+	border-bottom: none;
+}
+.miCuenta .hentry .entry-content .wrap .user-profile-links > a {
+	background: transparent;
+	padding: 10px 10px;
+	@include bordes(2px);
+	text-decoration: none;
+	position: relative;
+	bottom: 5px;
+}
+.miCuenta .hentry .entry-content .wrap .user-profile-links a.current {
+	background: $blanco;
+}
+.miCuenta .hentry .entry-content .wrap .user-profile-links a span {
+	height: 26px;
+	width: 22px;
+	display: inline-block;
+	position: relative;
+	top: 8px;
+	margin-right: 10px;
+}
+.miCuenta .hentry .entry-content .wrap .user-profile-links a span.historial {
+	background-position: -89px 0px;
+}
+.miCuenta .hentry .entry-content .wrap .user-profile-links a span.perfil {
+	background-position: -111px 0px;
+}
+.miCuenta .hentry .entry-content .wrap .user-profile-links a:last-of-type {
+	display: none;
+}
+.miCuenta .hentry .entry-content .wrap > table ,
+.miCuenta .hentry .entry-content .wrap > form {
+	background: $blanco;
+}
+.miCuenta .hentry .entry-content .wrap > form table tbody tr td textarea ,
+.miCuenta .hentry .entry-content .wrap > form table tbody tr td select ,
+.miCuenta .hentry .entry-content .wrap > form table tbody tr td input {
+	width: 400px;
+	height: 40px;
+}
+.miCuenta .hentry .entry-content .wrap > form table tbody tr td select {
+	background: white;
+}
+.miCuenta .hentry .entry-content .wrap > form table tbody tr.same_as_shipping_row td label {
+	color: white;
+}
+
+/*
+================================================
+	=> ESTATICOS
+================================================
+*/
+
+.content-area .estatico .hentry > header {
+	display: none;
+}
+
+/*
+================================================
+	=> FOOTER
+================================================
+*/
+
+section.nosotros {
+	margin-bottom: 20px;
+	clear: left;
+	display: block;
+	width: 100%;
+	float: left;
+}
+section.nosotros > div {
+	height: 185px;
+	float: left;
+	background: $blanco;
+	border-bottom: $bordeContenedor;
+	padding: 5px;
+	margin: 0 0 0 1%;
+	position: relative;
+}
+	section.nosotros > div:last-of-type {
+		float: right;
+		margin: 0 1% 0 0;
+	}
+section.nosotros > div.nuestrasMarcas {
+	width: 29%;
+}
+section.nosotros > .nuestrasMarcas img {
+	margin: 20px 10px 0 0;
+}
+	section.nosotros > .nuestrasMarcas img:last-of-type {
+		margin-right: 0;
+		width: 170px;
+	}
+section.nosotros > div.confiaron {
+	width: 66%;
+}
+section.nosotros > div h3 {
+	color: $grisMuyOscuro;
+	text-transform: uppercase;
+	border-bottom: 1px dashed $grisClaro;
+	margin: 0 0 10px 0;
+	font-weight: 300;
+}
+section.nosotros .confiaron img {
+	position: absolute;
+	top: -8px;
+	right: 8px;
+	float: right;
+}
+section.nosotros .confiaron p.twitt {
+	font-style: italic;
+	text-align: left;
+	margin: 10px 0 0 80px;
+	color: black;
+} 
+section.nosotros .confiaron p.twitt a {
+	color: $colorTwitter;
+}
+section.nosotros .confiaron .autor {
+	text-align: right;
+	margin: 20px 50px 10px 0;
+	float: right;
+}
+section.nosotros .confiaron .autor a {
+	color: $grisOscuro;
+}
+section.nosotros .confiaron .sprite {
+	width: 19px;
+	height: 16px;
+	display: inline-block;
+	background-position: -72px 0px;
+	float: left;
+	margin-right: 20px;
+}
+section.nosotros .confiaron .panel {}
+section.nosotros .confiaron .panel div {}
+section.nosotros .confiaron .panel div .quotes {}
+section.nosotros .confiaron .panel div .quotes ul {}
+section.nosotros .confiaron .panel div .quotes ul li {
+	list-style: none !important;
+}
+section.nosotros .confiaron .panel div .quotes ul li blockquote {}
+section.nosotros .confiaron .panel div .quotes ul li blockquote a {}
+section.nosotros .confiaron .panel div .quotes ul li blockquote a div {
+	@include bordes(50%);
+	display: block;
+	float: left;
+	width: 50px;
+	height: 50px;
+	background-color: $grisClarisimo;
+	overflow: hidden;
+}
+section.nosotros .confiaron .panel div .quotes ul li blockquote a div img {
+	position: static;
+}
+section.nosotros .confiaron .quovolve-nav:before , 
+section.nosotros .confiaron .quovolve-nav:after {
+	content: "\0020"; 
+	display: block; 
+	height: 0; 
+	visibility: hidden;  
+} 
+section.nosotros .confiaron .quovolve-nav:after { 
+	clear: both; 
+}
+section.nosotros .confiaron .quovolve-nav {
+	width: 100%;
+	margin: 20px 0;
+	line-height: 30px;
+	zoom: 1;
+	position: absolute;
+	bottom: 0;
+	left: 10px;
+}
+section.nosotros .confiaron .quovolve-nav span {
+	float: left;
+	margin-right: 5px;
+}
+section.nosotros .confiaron .quovolve-nav a {
+	background: #aaa;
+	line-height: 20px;
+	color: #fff;
+	display: block;
+	padding: 5px 15px;
+	border: 0 none;
+	text-align: center;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0, 0.15);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0, 0.15);
+	box-shadow: inset 0 1px 2px rgba(0,0,0, 0.15);
+}
+section.nosotros .confiaron .quovolve-nav a:hover {
+	background: $colorTwitter;
+}
+section.nosotros .confiaron .nav-numbers {
+	list-style: none; 
+	margin: 0;
+	float: right;
+	position: absolute;
+	right: 20px;
+}
+section.nosotros .confiaron .nav-numbers li {
+	float: left;
+	margin: 0 0 0 5px;
+}
+section.nosotros .confiaron .nav-numbers li a {
+	padding-left: 0; 
+	padding-right: 0;
+	width: 30px;
+}
+section.nosotros .confiaron .nav-numbers li.active a , 
+section.nosotros .confiaron .nav-numbers li a:hover {
+	background: $colorTwitter;
+}
+section.prefooter {
+	margin-bottom: 20px;
+	clear: left;
+	display: block;
+	width: 100%;
+	float: left;
+}
+section.prefooter > div {
+	width: 30%;
+	float: left;
+	margin: 0 1%;
+	margin-right: 9px;
+	padding-right: 10px;
+	min-height: 125px;
+	background: $blanco;
+	padding: 10px;
+	border-bottom: $bordeContenedor;
+}
+	section.prefooter > div:last-of-type {
+		margin-right: 0;
+	}
+section.prefooter .envioGratis .sprite {
+	width: 61px;
+	height: 58px;
+	float: left;
+	clear: left;
+	margin: 0 5px 0 0;
+	background-position: 0px -26px;
+}
+section.prefooter .sonrisaGarantizada .sprite {
+	width: 44px;
+	height: 64px;
+	float: left;
+	clear: left;
+	margin: 0 5px 0 0;
+	background-position: -61px -26px;
+}
+section.prefooter > div h4 {
+	color: $grisMuyOscuro;
+	text-transform: uppercase;
+	float: right;
+	margin: 0;
+	clear: none;
+	width: 64%;
+	font-size: 1em;
+}
+section.prefooter > div > p {
+	color: $grisOscuro;
+	float: right;
+	width: 64%;
+	font-size: 0.9em;
+}
+	section.prefooter > div p::first-letter {
+		text-transform: uppercase;
+	}
+section.prefooter .seElPrimero {
+	border-right: none;
+}
+section.prefooter .seElPrimero h4 ,
+section.prefooter .seElPrimero p {
+	width: auto;
+	float: left;
+	clear: left;
+}
+section.prefooter .inscribir {
+	border-right: none;
+}
+section.prefooter .inscribir .wpcf7 form > p  {
+	margin: 0;
+}
+section.prefooter .inscribir .wpcf7 form > p span.wpcf7-not-valid-tip {
+	left: -20px;
+	top: 98px;
+	padding: 0;
+	text-align: center;
+	width: 240px;
+}
+section.prefooter .inscribir .wpcf7 form > p input[type=text] {
+	margin-bottom: 20px;
+}
+section.prefooter .inscribir .wpcf7 form > p input[type=submit] {
+	background: $verde;
+	border-bottom: 4px solid $verdeOscuro;
+	width: 100%;
+	text-transform: capitalize;
+	font-size: 1.2em;
+	font-weight: 100;
+	height: 40px;
+	line-height: 0;
+	outline: none;
+	@include transicion(.3s);
+}
+	section.prefooter .inscribir .wpcf7 form > p input[type=submit]:hover {
+		background: $verdeMuyOscuro;
+		@include transicion(.3s);
+	}
+	section.prefooter .inscribir .wpcf7 form > p input[type=submit]:active {
+		@include transicion(.3s);
+		background: $verdeOscuro;
+		border-bottom: 0;
+		border-top: 4px solid $blanco;
+	}
+section.prefooter .inscribir .wpcf7 form > .wpcf7-validation-errors {
+	display: none !important;
+}
+section.prefooter .inscribir .wpcf7 form > .wpcf7-mail-sent-ok {
+	font-size: 0.7em;
+	text-align: center;
+	border: 1px solid #009444;
+	margin: 0;
+	padding: 5px 0;
+	background: #FFF;
+}
+footer.site-footer {
+	float: left;
+	width: 100%;
+	padding-bottom: 40px;
+	z-index: 2;
+	background-image: url('../images/footer-bg.png');
+	background-color: $grisUltraOscuro;
+}
+footer.site-footer .site-info a {
+	@include transicion(.3s);
+}
+	footer.site-footer .site-info a:hover {
+		color: $verdeOscuro;
+		@include transicion(.3s);
+	}
+footer.site-footer .site-info > p {
+	font-weight: 100;
+	letter-spacing: 0.03em;
+	float: left;
+	clear: left;
+	margin: 0;
+}
+footer.site-footer .site-info p .sprite {
+	height: 19px;
+	width: 21px;
+	display: inline-block;
+	float: none;
+	background-position: -51px 0px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+footer.site-footer .site-info p strong {
+	font-weight: 300;
+}
+footer.site-footer .site-info nav {
+	float: right;
+	clear: right;
+}
+footer.site-footer .site-info nav h6 {
+	color: white;
+	margin: 0 0 5px 0;
+	font-size: 1.6em;
+}
+footer.site-footer .site-info nav ul li {
+	float: left;
+	margin: 0 0 5px 0;
+	padding: 0;
+	list-style: none;
+	font-weight: 100;
+	clear: left;
+}
+footer.site-footer .site-info nav ul li a {
+	color: white;
+	font-size: 1.1em;
+}
+footer .vieneAlguien-btn {
+	position: fixed;
+	right: -90px;
+	top: 25%;
+	background: yellow;
+	width: 170px;
+	height: 50px;
+	text-transform: uppercase;
+	color: black;
+	cursor: pointer;
+	text-align: center;
+	line-height: 3.9em;
+	font-weight: bold;
+	font-size: 1.6em;
+	border: 2px solid black;
+	@include rotar(90deg);
+	@include transicion(.3s);
+}
+footer .vieneAlguien-btn:hover {
+	background: rgb(255, 255, 116);
+	right: -70px;
+	line-height: 3em;
+	@include transicion(.3s);
+}
+footer .vieneAlguien-falso {
+	position: fixed;
+	top: 0;
+	background: $blanco;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+}
+footer .vieneAlguien-falso span {
+	position: fixed;
+	top: 5px;
+	right: 5px;
+	color: black;
+	font-size: 1.3em;
+	text-transform: uppercase;
+}
+footer .vieneAlguien-falso img {
+	display: block;
+	margin: 20px auto 0;
+}
+.purechat.purechat-bottom-right {
+	z-index: 2;
+}
+
+
+
+

@@ -1,0 +1,108 @@
+/*
+====================
+	=> Variables
+====================
+*/
+
+$rojoPrecio: rgb(190, 0, 0);
+$rojo: #ED0303;
+$rojoOscuro: #CE0000;
+$grisMuyClaro: whitesmoke;
+$grisClarisimo: #DDDDDD;
+$grisClaro: #BCBEC0;
+$grisOscuro: #6D6E71;
+$grisMuyOscuro: #525252;
+$grisUltraOscuro: #2b2d2e;
+$negro: #000000;
+$test: cyan;
+$a		: #aaaaaa;
+$b		: #bbbbbb;
+$c		: #cccccc;
+$d		: #dddddd;
+$e		: #eeeeee;
+$nueve 	:	#999999;
+$blanco: #FFFFFF;
+$colorTwitter: #76A9DA;
+$verdeClaro : #04CFA1;
+$verde : #00A781;
+$verdeOscuro: #028F6F;
+$verdeMuyOscuro: #017E61;
+$bordeContenedor: 2px solid #BDC9D1;
+$m: max-width ;
+
+/*
+==========================
+=> MIXINS
+==========================
+*/
+
+@mixin degradado($fromColor, $toColor) {
+	background-color: $toColor; 
+	background: -webkit-linear-gradient($fromColor, $toColor); 
+	background: -o-linear-gradient($fromColor, $toColor); 
+	background: -moz-linear-gradient($fromColor, $toColor); 
+	background: linear-gradient($fromColor, $toColor); 
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}');
+}
+@mixin escalar($scale) {
+	-moz-transform: scale($scale);
+	-ms-transform: scale($scale);
+	-o-transform: scale($scale);
+	-webkit-transform: scale($scale);
+	transform: scale($scale);
+}
+@mixin transicion($transition) {
+	-webkit-transition: all $transition ease;
+	-moz-transition:    all $transition ease;
+	-o-transition:      all $transition ease;
+	transition:         all $transition ease;
+}
+@mixin bordes($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	border-radius: $radius;
+}
+@mixin sombra($sombra) {
+    -webkit-box-shadow: $sombra;
+    -moz-box-shadow: $sombra;
+    box-shadow: $sombra;
+}
+@mixin sombraInterna($sombraInterna) {
+    -webkit-box-shadow: inset $sombraInterna;
+    -moz-box-shadow: inset $sombraInterna;
+    box-shadow: inset $sombraInterna;
+}
+@mixin rotar($rotacion) {
+	-webkit-transform: rotate($rotacion);
+	-moz-transform: rotate($rotacion);
+	-ms-transform: rotate($rotacion);
+	-o-transform: rotate($rotacion);
+}
+@mixin blur($blur) {
+	-webkit-filter: blur($blur);
+	-moz-filter: blur($blur);
+	-o-filter: blur($blur);
+	-ms-filter: blur($blur); 
+	filter: blur($blur); 
+}
+@mixin ellipsis($cantidadLineas) {
+	-webkit-line-clamp: $cantidadLineas;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+}
+@mixin poligono($poligono1, $poligono2, $poligono3, $poligono4) {
+	-webkit-clip-path: polygon($poligono1, $poligono2, $poligono3, $poligono4);
+	clip-path: polygon($poligono1, $poligono2, $poligono3, $poligono4);
+}
+@mixin calc($propiedad, $calculo) {
+	#{$propiedad}: -moz-calc(#{$calculo});
+	#{$propiedad}: -webkit-calc(#{$calculo});
+	#{$propiedad}: calc(#{$calculo});
+}
+/*
+EJEMPLO DE USO
+@include calcTres(width, '80% - 20px');
+*/

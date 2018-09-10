@@ -1,0 +1,14 @@
+
+@import 'variables';
+@import 'header';
+@import 'hips';
+@import 'grilla';
+@import 'nosotros';
+@import 'footer';
+
+
+@media ($m:768px){
+	html {
+		height: 100%;
+	}	
+}

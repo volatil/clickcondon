@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2017 ServMask Inc.
+ * Copyright (C) 2014-2018 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,33 +22,6 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+?>
 
-abstract class Ai1wm_Http_Abstract {
-
-	protected $headers = array(
-		'Accept'          => '*/*',
-		'Accept-Encoding' => '*',
-		'Accept-Charset'  => '*',
-		'Accept-Language' => '*',
-		'User-Agent'      => 'Mozilla/5.0',
-	);
-
-	public function __construct() {
-		// Set user agent
-		if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			$this->headers['User-Agent'] = $_SERVER['HTTP_USER_AGENT'];
-		}
-	}
-
-	public function set_header( $key, $value ) {
-		$this->headers[ $key ] = $value;
-
-		return $this;
-	}
-
-	public function get_header( $key ) {
-		return $this->headers[ $key ];
-	}
-
-	abstract public function get( $url, $blocking = false );
-}
+<a href="https://servmask.com/products/google-cloud-storage-extension" target="_blank">Google Cloud</a>

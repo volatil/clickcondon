@@ -2,8 +2,9 @@
 Contributors: yani.iliev, bangelov, pimjitsawang
 Tags: move, transfer, copy, migrate, backup, clone, restore, db migration, wordpress migration, website migration, database export, database import, apoyo, sauvegarde, di riserva, バックアップ
 Requires at least: 3.3
-Tested up to: 4.8
-Stable tag: 6.55
+Tested up to: 4.9
+Requires PHP: 5.2.17
+Stable tag: 6.75
 License: GPLv2 or later
 
 Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
@@ -32,6 +33,9 @@ Mobile device compatible: All in One WP Plugin is the first plugin to offer true
 = Compatible with WordPress v3.3 to present =
 * We have a comprehensive Quality Assurance and testing process that ensures that the plugin is always compatible with the latest release of WordPress, but we don't support versions of WordPress prior to version 3.3 (2012)
 
+= WP-CLI Integration is included =
+* [WP-CLI Integration Documentation](https://help.servmask.com/knowledgebase/cli-integration/)
+
 = Support =
 * For the community version of the plugin please watch the instruction videos below and see our FAQ.
 * If you have more complex requirements, our team is here to help. If you have any questions please feel free to get in touch at [help.servmask.com](https://help.servmask.com/)
@@ -49,10 +53,16 @@ Mobile device compatible: All in One WP Plugin is the first plugin to offer true
 * [URL](https://servmask.com/products/url-extension)
 * [OneDrive](https://servmask.com/products/onedrive-extension)
 * [Box](https://servmask.com/products/box-extension)
+* [Mega](https://servmask.com/products/mega-extension)
+* [DigitalOcean Spaces](https://servmask.com/products/digitalocean-spaces-extension)
+* [Backblaze B2](https://servmask.com/products/backblaze-b2-extension)
+* [Google Cloud Storage](https://servmask.com/products/google-cloud-storage-extension)
+* [Microsoft Azure Storage](https://servmask.com/products/microsoft-azure-storage-extension)
 
 = Supported hosting providers =
-**The plugin does not have any dependancies, making it compatible with all PHP hosting providers. We support a vast range of hosting providers. Some of the most popular include:**
+**The plugin does not have any dependencies, making it compatible with all PHP hosting providers. We support a vast range of hosting providers. Some of the most popular include:**
 
+* DigitalOcean
 * Bluehost
 * InMotion
 * Web Hosting Hub
@@ -89,7 +99,184 @@ Alternatively you can download the plugin using the download button on this page
 2. Mobile Import page
 3. Plugin Menu
 
+== Privacy Policy ==
+All-in-One WP Migration **asks for your consent** to collect **requester's email address** when filling plugin's contact form. [GDPR Compliant Privacy Policy](https://www.iubenda.com/privacy-policy/946881)
+
 == Changelog ==
+= 6.74 =
+**Fixed**
+
+* WP-CLI export/import missing data
+* Serialization in PHP 7.2
+* Missing <staticContent> entry in the web.config file
+
+= 6.74 =
+**Added**
+
+* Support for LiteSpeed web server
+* Fully localized the export, import, and restore processes
+
+**Fixed**
+
+* Table prefix replacement on import in limited corner cases
+* URL replacement in Bitnami
+
+= 6.73 =
+**Fixed**
+
+* Improvements to the export and import process
+
+= 6.72 =
+**Added**
+
+* Support for Microsoft Azure Storage
+
+**Fixed**
+
+* The plugin incorrectly reports Disk is full on some hostings
+
+= 6.71 =
+**Added**
+
+* Support for Google Cloud Storage
+
+**Fixed**
+
+* Improvements to the export and import process
+
+= 6.70 =
+**Added**
+
+* Support for Backblaze B2
+
+**Fixed**
+
+* Small improvements to the export process
+
+= 6.69 =
+**Added**
+
+* Support for RTL languages
+* Disable My Custom Widgets, WPS Hide Login and Endurance Page Cache plugins after restoring a backup
+
+**Changed**
+
+* Text on import steps
+
+= 6.68 =
+**Added**
+
+* Privacy policy section and link to GDPR Compliant Privacy Policy
+
+= 6.67 =
+**Changed**
+
+* Rename DigitalOcean to DigitalOcean Spaces Extension
+
+= 6.66 =
+**Added**
+
+* Notification class for sending emails on error (export/import)
+* Support for DigitalOcean Extension
+
+**Fixed**
+
+* Database regex pattern for parsing SQL queries
+
+= 6.65 =
+**Added**
+
+* New plugin icons on WP Admin Updates page
+
+**Fixed**
+
+* Table prefix replacement of subsite options table on export
+
+= 6.64 =
+**Added**
+
+* Deactivate Jetpack SSO module on import
+* Deactivate Invisible reCaptcha plugin on import
+
+= 6.63 =
+**Added**
+
+* Responsive design on export/import dropdown
+* Warning message when export site is using PHP 5.x and import site is using PHP 7.x
+
+**Fixed**
+
+* Wrong next backup date on Settings page
+* 🇯🇵 Japanese translation on Backups page
+
+**Changed**
+
+* Remove disabled cancel button on import
+
+= 6.62 =
+**Added**
+
+* Technical message if PHP is 32bit and backup is larger than 2GB on export
+* Technical message if db server is SQL Server on export/import
+
+**Fixed**
+
+* SQL regex pattern on import
+
+**Changed**
+
+* Confirmation message on import
+
+= 6.61 =
+**Added**
+
+* Disable wp-force-ssl plugin if current site is not SSL based on import
+* Support for Mega Extension
+
+= 6.60 =
+**Added**
+
+* Tested up to WordPress 4.9
+
+= 6.59 =
+**Added**
+
+* Disable wordpress-https plugin if current site is not SSL based on import
+* Support for Azure db on import
+* New button icons for cloud extensions
+
+= 6.58 =
+**Fixed**
+
+* Remove WP CLI commands on PHP 5.2 and below
+* Issue with files on export
+
+= 6.57 =
+**Added**
+
+* Disable really-simple-ssl plugin if current site is not SSL based on import
+* Support for WP-CLI
+
+= 6.56 =
+**Added**
+
+* Symlink directories on export
+* Support sub directories on Backups page
+* A cancel button on import confirm step
+
+**Fixed**
+
+* Support IE11
+* Wrong blogs.dir URL replacement
+* Wrong path network drive replacement (Windows)
+* Text placeholders of first find/replace inputs on export
+
+**Changed**
+
+* Added loading indicator to feedback and report a problem forms
+* Do not clear cache on export
+* Skip files that contain new line on export
+
 = 6.55 =
 **Added**
 

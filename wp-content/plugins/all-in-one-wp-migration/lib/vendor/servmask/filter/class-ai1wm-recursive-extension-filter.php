@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2017 ServMask Inc.
+ * Copyright (C) 2014-2018 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,14 +23,28 @@
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
 
-class Ai1wm_Http_Factory {
+class Ai1wm_Recursive_Extension_Filter extends RecursiveFilterIterator {
 
-	public static function create( $type ) {
-		if ( $type === 'curl' ) {
-			return new Ai1wm_Http_Curl;
-		}
+	protected $include = array();
 
-		return new Ai1wm_Http_Stream;
+	public function __construct( RecursiveIterator $iterator, $include = array() ) {
+		parent::__construct( $iterator );
+
+		// Set include filter
+		$this->include = $include;
 	}
 
+	public function accept() {
+		if ( $this->getInnerIterator()->isFile() ) {
+			if ( ! in_array( pathinfo( $this->getInnerIterator()->getFilename(), PATHINFO_EXTENSION ), $this->include ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public function getChildren() {
+		return new self( $this->getInnerIterator()->getChildren(), $this->include );
+	}
 }

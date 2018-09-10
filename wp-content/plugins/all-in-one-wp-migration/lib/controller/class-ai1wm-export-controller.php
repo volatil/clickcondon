@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2017 ServMask Inc.
+ * Copyright (C) 2014-2018 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,15 +32,11 @@ class Ai1wm_Export_Controller {
 	public static function export( $params = array() ) {
 		global $wp_filter;
 
-		// Set error handler
-		@set_error_handler( 'Ai1wm_Handler::error' );
-
-		// Set shutdown handler
-		@register_shutdown_function( 'Ai1wm_Handler::shutdown' );
+		ai1wm_setup_environment();
 
 		// Set params
 		if ( empty( $params ) ) {
-			$params = stripslashes_deep( $_REQUEST );
+			$params = stripslashes_deep( array_merge( $_GET, $_POST ) );
 		}
 
 		// Set priority
@@ -85,7 +81,8 @@ class Ai1wm_Export_Controller {
 							Ai1wm_Log::export( $params );
 
 						} catch ( Exception $e ) {
-							Ai1wm_Status::error( $e->getMessage() );
+							Ai1wm_Status::error( __( 'Unable to export', AI1WM_PLUGIN_NAME ), $e->getMessage() );
+							Ai1wm_Notification::error( __( 'Unable to export', AI1WM_PLUGIN_NAME ), $e->getMessage() );
 							Ai1wm_Directory::delete( ai1wm_storage_path( $params ) );
 							exit;
 						}
@@ -104,7 +101,14 @@ class Ai1wm_Export_Controller {
 							exit;
 						}
 
-						return Ai1wm_Http::get( admin_url( 'admin-ajax.php?action=ai1wm_export' ), $params );
+						wp_remote_post( apply_filters( 'ai1wm_http_export_url', admin_url( 'admin-ajax.php?action=ai1wm_export' ) ), array(
+							'timeout'   => apply_filters( 'ai1wm_http_export_timeout', 5 ),
+							'blocking'  => apply_filters( 'ai1wm_http_export_blocking', false ),
+							'sslverify' => apply_filters( 'ai1wm_http_export_sslverify', false ),
+							'headers'   => apply_filters( 'ai1wm_http_export_headers', array() ),
+							'body'      => apply_filters( 'ai1wm_http_export_body', $params ),
+						) );
+						exit;
 					}
 				}
 
@@ -120,8 +124,23 @@ class Ai1wm_Export_Controller {
 			apply_filters( 'ai1wm_export_dropbox', Ai1wm_Template::get_content( 'export/button-dropbox' ) ),
 			apply_filters( 'ai1wm_export_gdrive', Ai1wm_Template::get_content( 'export/button-gdrive' ) ),
 			apply_filters( 'ai1wm_export_s3', Ai1wm_Template::get_content( 'export/button-s3' ) ),
+			apply_filters( 'ai1wm_export_b2', Ai1wm_Template::get_content( 'export/button-b2' ) ),
 			apply_filters( 'ai1wm_export_onedrive', Ai1wm_Template::get_content( 'export/button-onedrive' ) ),
 			apply_filters( 'ai1wm_export_box', Ai1wm_Template::get_content( 'export/button-box' ) ),
+			apply_filters( 'ai1wm_export_mega', Ai1wm_Template::get_content( 'export/button-mega' ) ),
+			apply_filters( 'ai1wm_export_digitalocean', Ai1wm_Template::get_content( 'export/button-digitalocean' ) ),
+			apply_filters( 'ai1wm_export_gcloud_storage', Ai1wm_Template::get_content( 'export/button-gcloud-storage' ) ),
+			apply_filters( 'ai1wm_export_azure_storage', Ai1wm_Template::get_content( 'export/button-azure-storage' ) ),
 		);
+	}
+
+	public static function http_export_headers( $headers = array() ) {
+		if ( ( $user = get_option( AI1WM_AUTH_USER ) ) && ( $password = get_option( AI1WM_AUTH_PASSWORD ) ) ) {
+			if ( ( $hash = base64_encode( sprintf( '%s:%s', $user, $password ) ) ) ) {
+				$headers['Authorization'] = sprintf( 'Basic %s', $hash );
+			}
+		}
+
+		return $headers;
 	}
 }

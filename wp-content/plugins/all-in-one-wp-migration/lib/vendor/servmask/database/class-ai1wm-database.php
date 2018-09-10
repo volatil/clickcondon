@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2017 ServMask Inc.
+ * Copyright (C) 2014-2018 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,15 +35,13 @@ abstract class Ai1wm_Database {
 	/**
 	 * WordPress database handler
 	 *
-	 * @access protected
-	 * @var mixed
+	 * @var object
 	 */
 	protected $wpdb = null;
 
 	/**
 	 * Old table prefixes
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $old_table_prefixes = array();
@@ -51,15 +49,27 @@ abstract class Ai1wm_Database {
 	/**
 	 * New table prefixes
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $new_table_prefixes = array();
 
 	/**
+	 * Old column prefixes
+	 *
+	 * @var array
+	 */
+	protected $old_column_prefixes = array();
+
+	/**
+	 * New column prefixes
+	 *
+	 * @var array
+	 */
+	protected $new_column_prefixes = array();
+
+	/**
 	 * Old replace values
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $old_replace_values = array();
@@ -67,7 +77,6 @@ abstract class Ai1wm_Database {
 	/**
 	 * New replace values
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $new_replace_values = array();
@@ -75,7 +84,6 @@ abstract class Ai1wm_Database {
 	/**
 	 * Table where clauses
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $table_where_clauses = array();
@@ -83,7 +91,6 @@ abstract class Ai1wm_Database {
 	/**
 	 * Table prefix columns
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $table_prefix_columns = array();
@@ -91,7 +98,6 @@ abstract class Ai1wm_Database {
 	/**
 	 * Include table prefixes
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $include_table_prefixes = array();
@@ -99,7 +105,6 @@ abstract class Ai1wm_Database {
 	/**
 	 * Exclude table prefixes
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $exclude_table_prefixes = array();
@@ -107,7 +112,6 @@ abstract class Ai1wm_Database {
 	/**
 	 * List all tables that should not be affected by the timeout of the current request
 	 *
-	 * @access protected
 	 * @var array
 	 */
 	protected $atomic_tables = array();
@@ -115,7 +119,6 @@ abstract class Ai1wm_Database {
 	/**
 	 * Visual Composer
 	 *
-	 * @access protected
 	 * @var bool
 	 */
 	protected $visual_composer = false;
@@ -123,11 +126,21 @@ abstract class Ai1wm_Database {
 	/**
 	 * Constructor
 	 *
-	 * @param  object $wpdb WPDB instance
-	 * @return Ai1wm_Database
+	 * @param object $wpdb WPDB instance
 	 */
 	public function __construct( $wpdb ) {
 		$this->wpdb = $wpdb;
+
+		// Check Microsoft SQL Server support
+		if ( is_resource( $this->wpdb->dbh ) ) {
+			if ( get_resource_type( $this->wpdb->dbh ) === 'SQL Server Connection' ) {
+				throw new Exception(
+					'Your WordPress installation uses Microsoft SQL Server. ' .
+					'In order to use All in One WP Migration, please change your installation to MySQL and try again. ' .
+					'<a href="https://help.servmask.com/knowledgebase/microsoft-sql-server/" target="_blank">Technical details</a>'
+				);
+			}
+		}
 
 		// Set database host (HyberDB)
 		if ( empty( $this->wpdb->dbhost ) ) {
@@ -184,6 +197,48 @@ abstract class Ai1wm_Database {
 	 */
 	public function get_new_table_prefixes() {
 		return $this->new_table_prefixes;
+	}
+
+	/**
+	 * Set old column prefixes
+	 *
+	 * @param  array $prefixes List of column prefixes
+	 * @return Ai1wm_Database
+	 */
+	public function set_old_column_prefixes( $prefixes ) {
+		$this->old_column_prefixes = $prefixes;
+
+		return $this;
+	}
+
+	/**
+	 * Get old column prefixes
+	 *
+	 * @return array
+	 */
+	public function get_old_column_prefixes() {
+		return $this->old_column_prefixes;
+	}
+
+	/**
+	 * Set new column prefixes
+	 *
+	 * @param  array $prefixes List of column prefixes
+	 * @return Ai1wm_Database
+	 */
+	public function set_new_column_prefixes( $prefixes ) {
+		$this->new_column_prefixes = $prefixes;
+
+		return $this;
+	}
+
+	/**
+	 * Get new column prefixes
+	 *
+	 * @return array
+	 */
+	public function get_new_column_prefixes() {
+		return $this->new_column_prefixes;
 	}
 
 	/**
@@ -475,10 +530,9 @@ abstract class Ai1wm_Database {
 	 * @param  string $file_name    Name of file
 	 * @param  int    $table_index  Table index
 	 * @param  int    $table_offset Table offset
-	 * @param  int    $timeout      Process timeout
 	 * @return bool
 	 */
-	public function export( $file_name, &$table_index = 0, &$table_offset = 0, $timeout = 0 ) {
+	public function export( $file_name, &$table_index = 0, &$table_offset = 0 ) {
 		// Set file handler
 		$file_handler = ai1wm_open( $file_name, 'ab' );
 
@@ -493,11 +547,14 @@ abstract class Ai1wm_Database {
 		// Flag to hold if all tables have been processed
 		$completed = true;
 
+		// Set SQL Mode
+		$this->query( "SET SESSION sql_mode = ''" );
+
 		// Get tables
 		$tables = $this->get_tables();
 
 		// Export tables
-		for ( ; $table_index < count( $tables ); $table_index++ ) {
+		for ( ; $table_index < count( $tables ); ) {
 
 			// Get table name
 			$table_name = $tables[ $table_index ];
@@ -580,8 +637,18 @@ abstract class Ai1wm_Database {
 				// Apply additional table prefix columns
 				$columns = $this->get_table_prefix_columns( $table_name );
 
-				// Get results
+				// Run SQL query
 				$result = $this->query( $query );
+
+				// Repair table data
+				if ( $this->errno() === 1194 ) {
+
+					// Current table is marked as crashed and should be repaired
+					$this->repair_table( $table_name );
+
+					// Run SQL query
+					$result = $this->query( $query );
+				}
 
 				// Generate insert statements
 				if ( $num_rows = $this->num_rows( $result ) ) {
@@ -598,7 +665,7 @@ abstract class Ai1wm_Database {
 						foreach ( $row as $key => $value ) {
 							// Replace table prefix columns
 							if ( isset( $columns[ strtolower( $key ) ] ) ) {
-								$value = $this->replace_table_prefixes( $value, 0 );
+								$value = $this->replace_column_prefixes( $value, 0 );
 							}
 
 							// Replace table values
@@ -614,7 +681,7 @@ abstract class Ai1wm_Database {
 						// Write insert statement
 						ai1wm_write( $file_handler, $table_insert );
 
-						// Set current table rows
+						// Set current table offset
 						$table_offset++;
 
 						// Write end of transaction
@@ -629,6 +696,9 @@ abstract class Ai1wm_Database {
 						ai1wm_write( $file_handler, "COMMIT;\n" );
 					}
 
+					// Set curent table index
+					$table_index++;
+
 					// Set current table offset
 					$table_offset = 0;
 				}
@@ -637,7 +707,7 @@ abstract class Ai1wm_Database {
 				$this->free_result( $result );
 
 				// Time elapsed
-				if ( $timeout ) {
+				if ( ( $timeout = apply_filters( 'ai1wm_completed_timeout', 10 ) ) ) {
 					if ( ( microtime( true ) - $start ) > $timeout ) {
 						$completed = false;
 						break 2;
@@ -657,10 +727,9 @@ abstract class Ai1wm_Database {
 	 *
 	 * @param  string $file_name    Name of file
 	 * @param  int    $query_offset Query offset
-	 * @param  int    $timeout      Process timeout
 	 * @return bool
 	 */
-	public function import( $file_name, &$query_offset = 0, $timeout = 0 ) {
+	public function import( $file_name, &$query_offset = 0 ) {
 		// Set max allowed packet
 		$max_allowed_packet = $this->get_max_allowed_packet();
 
@@ -673,11 +742,12 @@ abstract class Ai1wm_Database {
 		// Flag to hold if all tables have been processed
 		$completed = true;
 
-		// Set empty query
-		$query = null;
+		// Set SQL Mode
+		$this->query( "SET SESSION sql_mode = ''" );
 
 		// Set file pointer at the query offset
 		if ( fseek( $file_handler, $query_offset ) !== -1 ) {
+			$query = null;
 
 			// Start transaction
 			$this->query( 'START TRANSACTION' );
@@ -708,11 +778,21 @@ abstract class Ai1wm_Database {
 						// Run SQL query
 						$this->query( $query );
 
+						// Replace table engines (Azure)
+						if ( $this->errno() === 1030 ) {
+
+							// Replace table engines
+							$query = $this->replace_table_engines( $query );
+
+							// Run SQL query
+							$this->query( $query );
+						}
+
 						// Set query offset
 						$query_offset = ftell( $file_handler );
 
 						// Time elapsed
-						if ( $timeout ) {
+						if ( ( $timeout = apply_filters( 'ai1wm_completed_timeout', 10 ) ) ) {
 							if ( ! $this->is_atomic_query( $query ) ) {
 								if ( ( microtime( true ) - $start ) > $timeout ) {
 									$completed = false;
@@ -754,7 +834,7 @@ abstract class Ai1wm_Database {
 	 */
 	protected function get_version() {
 		$result = $this->query( "SHOW VARIABLES LIKE 'version'" );
-		$row = $this->fetch_assoc( $result );
+		$row    = $this->fetch_assoc( $result );
 
 		// Close result cursor
 		$this->free_result( $result );
@@ -772,7 +852,7 @@ abstract class Ai1wm_Database {
 	 */
 	protected function get_max_allowed_packet() {
 		$result = $this->query( "SHOW VARIABLES LIKE 'max_allowed_packet'" );
-		$row = $this->fetch_assoc( $result );
+		$row    = $this->fetch_assoc( $result );
 
 		// Close result cursor
 		$this->free_result( $result );
@@ -791,7 +871,7 @@ abstract class Ai1wm_Database {
 	 */
 	protected function get_collation( $collation_name ) {
 		$result = $this->query( "SHOW COLLATION LIKE '{$collation_name}'" );
-		$row = $this->fetch_assoc( $result );
+		$row    = $this->fetch_assoc( $result );
 
 		// Close result cursor
 		$this->free_result( $result );
@@ -810,7 +890,7 @@ abstract class Ai1wm_Database {
 	 */
 	protected function get_create_table( $table_name ) {
 		$result = $this->query( "SHOW CREATE TABLE `{$table_name}`" );
-		$row = $this->fetch_assoc( $result );
+		$row    = $this->fetch_assoc( $result );
 
 		// Close result cursor
 		$this->free_result( $result );
@@ -819,6 +899,16 @@ abstract class Ai1wm_Database {
 		if ( isset( $row['Create Table'] ) ) {
 			return $row['Create Table'];
 		}
+	}
+
+	/**
+	 * Repair MySQL table
+	 *
+	 * @param  string $table_name Table name
+	 * @return void
+	 */
+	protected function repair_table( $table_name ) {
+		$this->query( "REPAIR TABLE `{$table_name}`" );
 	}
 
 	/**
@@ -870,14 +960,42 @@ abstract class Ai1wm_Database {
 	/**
 	 * Replace table prefixes
 	 *
-	 * @param  string  $input    Table value
-	 * @param  bool    $position Replace first occurrence at a specified position
+	 * @param  string $input    Table value
+	 * @param  mixed  $position Replace first occurrence at a specified position
 	 * @return string
 	 */
 	protected function replace_table_prefixes( $input, $position = false ) {
 		// Get table prefixes
-		$search = $this->get_old_table_prefixes();
+		$search  = $this->get_old_table_prefixes();
 		$replace = $this->get_new_table_prefixes();
+
+		// Replace first occurance at a specified position
+		if ( $position !== false ) {
+			for ( $i = 0; $i < count( $search ); $i++ ) {
+				$current = stripos( $input, $search[ $i ] );
+				if ( $current === $position ) {
+					$input = substr_replace( $input, $replace[ $i ], $current, strlen( $search[ $i ] ) );
+				}
+			}
+
+			return $input;
+		}
+
+		// Replace all occurrences
+		return str_ireplace( $search, $replace, $input );
+	}
+
+	/**
+	 * Replace column prefixes
+	 *
+	 * @param  string $input    Column value
+	 * @param  mixed  $position Replace first occurrence at a specified position
+	 * @return string
+	 */
+	protected function replace_column_prefixes( $input, $position = false ) {
+		// Get column prefixes
+		$search  = $this->get_old_column_prefixes();
+		$replace = $this->get_new_column_prefixes();
 
 		// Replace first occurance at a specified position
 		if ( $position !== false ) {
@@ -959,7 +1077,7 @@ abstract class Ai1wm_Database {
 	 * @return string
 	 */
 	protected function replace_table_collations( $input ) {
-		static $search = array();
+		static $search  = array();
 		static $replace = array();
 
 		// Replace table collations
@@ -1093,7 +1211,7 @@ abstract class Ai1wm_Database {
 	 */
 	protected function replace_table_options( $input ) {
 		// Set table replace options
-		$search = array(
+		$search  = array(
 			'TYPE=InnoDB',
 			'TYPE=MyISAM',
 			'ENGINE=Aria',
@@ -1106,7 +1224,6 @@ abstract class Ai1wm_Database {
 			'ROW_FORMAT=PAGE',
 			'ROW_FORMAT=FIXED',
 			'ROW_FORMAT=DYNAMIC',
-
 		);
 		$replace = array(
 			'ENGINE=InnoDB',
@@ -1121,6 +1238,26 @@ abstract class Ai1wm_Database {
 			'',
 			'',
 			'',
+		);
+
+		return str_ireplace( $search, $replace, $input );
+	}
+
+	/**
+	 * Replace table engines
+	 *
+	 * @param  string $input SQL statement
+	 * @return string
+	 */
+	protected function replace_table_engines( $input ) {
+		// Set table replace engines
+		$search  = array(
+			'ENGINE=MyISAM',
+			'ENGINE=Aria',
+		);
+		$replace = array(
+			'ENGINE=InnoDB',
+			'ENGINE=InnoDB',
 		);
 
 		return str_ireplace( $search, $replace, $input );

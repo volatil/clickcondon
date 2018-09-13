@@ -29,22 +29,6 @@
 
 		</section>
 
-		<section class='prefooter'>
-			<div class='envioGratis'>
-				<span class='sprite'></span>
-				<h4>envio gratis</h4>
-				<p>Si tu pedido es igual o superior a <strong>$11.000</strong> el envio es gratis.</p>
-			</div>
-			<div class='sonrisaGarantizada'>
-				<span class='sprite'></span>
-				<h4>sonrisa garantizada</h4>
-				<p>Te garantizamos placer y seguridad.<br>Lo demas lo pones tú.</p>
-			</div>
-			<div class='inscribir'>
-				<?php echo do_shortcode( '[contact-form-7 id="423" title="footerInscribirme"]' ); ?>
-			</div>
-		</section>
-
 		<footer id="colophon" class="site-footer" role="contentinfo">
 
 			<div class='vieneAlguien-btn'>
@@ -89,10 +73,6 @@
 	<?php wp_footer(); ?>
 
 	<?php include_once ('page-templates/analytics.php'); ?>
-
-	<!-- PURE CHAT -->
-	<script type='text/javascript'>	(function () { var done = false;	var script = document.createElement('script');	script.async = true;	script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) {	if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {	var w = new PCWidget({ c: '78100c6b-65da-4aad-a559-0cff76894f4d', f: true });	done = true; }	};	})();	</script>
-	 <!-- /PURE CHAT -->
 
 </body>
 </html>
